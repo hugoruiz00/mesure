@@ -10,11 +10,13 @@ const Vertex = ({id, position}) => {
       PanResponder.create({
         onStartShouldSetPanResponder: () => true,
         onPanResponderMove: (_, gesture) => {
+            const roundedX = parseFloat(gesture.moveX.toFixed(1));
+            const roundedY = parseFloat(gesture.moveY.toFixed(1));
             dispatch(vertexUpdated({
               id,
               position: {
-                x: gesture.moveX,
-                y: gesture.moveY,
+                x: roundedX,
+                y: roundedY,
               }
             }));
         },
