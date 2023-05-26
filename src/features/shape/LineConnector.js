@@ -1,12 +1,8 @@
 import { Line } from "react-native-svg";
 import {Text } from 'react-native';
+import { calculateDistance } from "../../utils/formulas";
 
 export const LineConnector = ({start, end}) => {
-
-  const calculateDistance = (x1, y1, x2, y2) => {
-    const distance = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
-    return distance;
-  }
 
   return (  
     <>
@@ -26,7 +22,7 @@ export const LineConnector = ({start, end}) => {
           left: (start.x + end.x) / 2,
           top: (start.y + end.y) / 2,
         }}>
-        {calculateDistance(start.x, start.y, end.x, end.y).toFixed(2)}
+        {calculateDistance(start.x, start.y, end.x, end.y)}
       </Text>
     </>
   );

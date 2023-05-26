@@ -1,24 +1,16 @@
 import React from 'react';
 import Vertex from './Vertex';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { LineConnector } from './LineConnector';
 import { Svg } from 'react-native-svg';
 import { Text } from 'react-native';
+import { calculateArea, getXCoordinate, getYCoordinate } from '../../utils/formulas';
+import { FloatingActionButton } from '../../components/FloatingActionButton';
+import { vertexUpdated } from './shapeSlice';
 
 function Shape() {
   const shape = useSelector(state => state.shape);
-
-  const calculateArea = (shape) => {
-    let total = 0;
-    console.log(shape);
-    shape.forEach((vertex, index) => {
-      const nextIndex = (index==shape.length-1) ? 0: index+1;
-      total+= vertex.position.x * shape[nextIndex].position.y;
-      total-= vertex.position.y * shape[nextIndex].position.x;
-    }); 
-
-    return Math.abs(total/2);
-  }
+  const dispatch = useDispatch();
 
   const renderedVertices = shape.map((vertex) => {
     return <Vertex key={vertex.id} id={vertex.id} position={vertex.position}></Vertex>
