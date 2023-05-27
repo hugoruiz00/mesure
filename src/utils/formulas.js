@@ -16,25 +16,34 @@ export const calculateDistance = (x1, y1, x2, y2) => {
     return distance;
 }
 
-export const getXCoordinate = (xA, xB, yA, yB, dAB, dAC, dBC) => {
-    //const dBC = calculateDistance(xA, yA, xB, yB);
-    const firstResult = (xA+xB)/2 + ((xB-xA)*(dAC**2-dBC**2)) / (2*(dAB**2));
-    const secondResult = 2 * ((yA-yB) / dAB**2) * areaWithHeronFormula(dAB, dBC, dAC);
-    const xC1 = firstResult + secondResult;
-    const xC2 = firstResult - secondResult;
-    return xC1;
+export const getXCoordinate = (A, B, C, dAC, dBC) => {
+    const dAB = calculateDistance(A.x, A.y, B.x, B.y);
+    const firstResult = (A.x+B.x)/2 + ((B.x-A.x)*(dAC**2-dBC**2)) / (2*(dAB**2));
+    const secondResult = 2 * ((A.y-B.y) / dAB**2) * areaWithHeronFormula(dAB, dBC, dAC);
+    const Cx1 = firstResult + secondResult;
+    const Cx2 = firstResult - secondResult;
+    return getNearestValue(C.x, Cx1, Cx2);
 }
 
-export const getYCoordinate = (xA, xB, yA, yB, dAB, dAC, dBC) => {
-    //const dBC = calculateDistance(xA, yA, xB, yB);
-    const firstResult = (yA+yB)/2 + ((yB-yA)*(dAC**2-dBC**2)) / (2*(dAB**2));
-    const secondResult = 2 * ((xA-xB) / dAB**2) * areaWithHeronFormula(dAB, dBC, dAC);
-    const yC1 = firstResult - secondResult;
-    const yC2 = firstResult + secondResult;
-    return yC1;
+export const getYCoordinate = (A, B, C, dAC, dBC) => {
+    const dAB = calculateDistance(A.x, A.y, B.x, B.y);
+    const firstResult = (A.y+B.y)/2 + ((B.y-A.y)*(dAC**2-dBC**2)) / (2*(dAB**2));
+    const secondResult = 2 * ((A.x-B.x) / dAB**2) * areaWithHeronFormula(dAB, dBC, dAC);
+    const Cy1 = firstResult - secondResult;
+    const Cy2 = firstResult + secondResult;
+    return getNearestValue(C.y, Cy1, Cy2);
 }
 
-export const areaWithHeronFormula = (dAB, dBC, dAC) => {
+export const coordinateExists = (A, B, dAC, dBC) => {
+    const dAB = calculateDistance(A.x, A.y, B.x, B.y);
+    return (((dAC + dBC) >= dAB) && (dAB >= Math.abs(dAC - dBC)));
+}
+
+const areaWithHeronFormula = (dAB, dBC, dAC) => {
     const area = Math.sqrt((dAB**2 + dAC**2 + dBC**2)**2 - 2 * (dAB**4 + dAC**4 + dBC**4)) / 4;
     return area;
+}
+
+const getNearestValue = (targetNumber, num1, num2) => {
+    return (Math.abs(targetNumber - num1) < Math.abs(targetNumber - num2)) ? num1 : num2;
 }
