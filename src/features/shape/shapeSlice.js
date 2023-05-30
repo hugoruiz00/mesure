@@ -2,13 +2,11 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const shapeSlice = createSlice({
   name: 'shape',
-  initialState: [
-    {id:1, position:{x:10, y:10}},
-    {id:2, position:{x:30, y:10}},
-    {id:3, position:{x:50, y:10}},
-    {id:4, position:{x:50, y:10}},
-  ],
+  initialState: [],
   reducers: {
+    shapeSetted(state, action){
+      return action.payload;
+    },
     vertexAdded(state, action) {
       state.push({
         id: action.payload.id,
@@ -22,5 +20,5 @@ const shapeSlice = createSlice({
   }
 })
 
-export const { vertexAdded, vertexUpdated } = shapeSlice.actions
+export const { shapeSetted, vertexAdded, vertexUpdated } = shapeSlice.actions
 export default shapeSlice.reducer

@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { Alert, StyleSheet, Text } from 'react-native';
 import { ScrollView, TextInput, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useDispatch } from 'react-redux';
+import { shapeSetted } from './shapeSlice';
 
-function ShapeDataForm() {
-    const [inputs, setInputs] = useState([]);
+function ShapeDataForm({navigation}) {
+    const dispatch = useDispatch();
+
+    const [inputs, setInputs] = useState([
+        {value:'', status:'empty'},
+        {value:'', status:'empty'},
+        {value:'', status:'empty'}
+    ]);
 
     const handleAddInput = () => {
         setInputs([...inputs, {value:'', status:'empty'}]);
@@ -30,10 +38,19 @@ function ShapeDataForm() {
     }
 
     const handleOnSave = () => {
-        console.log(validateInputs());
+        if(validadInputs()){
+            setShapeInitialState();
+        }else{
+            Alert.alert(
+                'Aviso',
+                'Ingrese números válidos en todos los campos',
+                [{text: 'Aceptar', style: 'cancel'}],
+                {cancelable: true},
+            );
+        }
     }
 
-    const validateInputs = () => {
+    const validadInputs = () => {
         let isValid = true;
         inputs.forEach(input => {
             if(input.status!='valid'){
@@ -42,6 +59,21 @@ function ShapeDataForm() {
             }
         });
         return isValid;
+    }
+
+    const setShapeInitialState = () => {
+        const amountIncrease = 80;
+        let xPosition = amountIncrease-50;
+        let yPosition = amountIncrease-50;
+        const shapeDimensions = inputs.map((input, index) => {
+            if(index == Math.round(inputs.length/2)) xPosition += amountIncrease;
+            if(index >= inputs.length/2) yPosition -= amountIncrease;
+            else yPosition += amountIncrease;
+
+            return {id: index+1, position:{x: xPosition, y: yPosition}, sideDistance: input.value}
+        });
+        dispatch(shapeSetted(shapeDimensions));
+        navigation.navigate('Shape');
     }
 
     return (
