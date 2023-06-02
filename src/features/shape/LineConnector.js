@@ -1,8 +1,10 @@
 import { Line } from "react-native-svg";
 import {Text } from 'react-native';
 import { calculateDistance } from "../../utils/formulas";
+import { useSelector } from "react-redux";
 
-export const LineConnector = ({start, end}) => {
+export const LineConnector = ({start, end, distance}) => {
+  const scale = useSelector(state => state.scale);
 
   return (  
     <>
@@ -17,12 +19,22 @@ export const LineConnector = ({start, end}) => {
       <Text style={{
           position: 'absolute',
           fontSize: 20,
-          fontWeight: 'bold',
+          fontWeight: 600,
           color: 'black',
           left: (start.x + end.x) / 2,
           top: (start.y + end.y) / 2,
         }}>
-        {calculateDistance(start.x, start.y, end.x, end.y)}
+        {(calculateDistance(start.x, start.y, end.x, end.y) * scale).toFixed(2)}
+      </Text>
+      <Text style={{
+          position: 'absolute',
+          fontSize: 20,
+          fontWeight: 600,
+          color: 'black',
+          left: (start.x + end.x) / 2,
+          top: (start.y + end.y) / 2+20,
+        }}>
+        {distance}
       </Text>
     </>
   );

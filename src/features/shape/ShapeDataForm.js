@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Alert, StyleSheet, Text } from 'react-native';
+import { Alert, Dimensions, StyleSheet, Text } from 'react-native';
 import { ScrollView, TextInput, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch } from 'react-redux';
 import { shapeSetted } from './shapeSlice';
+import { scaleSetted } from '../scale/scaleSlice';
 
 function ShapeDataForm({navigation}) {
     const dispatch = useDispatch();
@@ -70,9 +71,12 @@ function ShapeDataForm({navigation}) {
             if(index >= inputs.length/2) yPosition -= amountIncrease;
             else yPosition += amountIncrease;
 
-            return {id: index+1, position:{x: xPosition, y: yPosition}, sideDistance: input.value}
+            return {id: index+1, position:{x: xPosition, y: yPosition}, sideDistance: parseFloat(input.value)}
         });
         dispatch(shapeSetted(shapeDimensions));
+        const maxSideDistance = Math.max(...shapeDimensions.map(vertex => vertex.sideDistance));
+        const scale = (maxSideDistance * 2) / Dimensions.get('window').width;
+        dispatch(scaleSetted(scale.toFixed(2)));
         navigation.navigate('Shape');
     }
 
