@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LineConnector } from './LineConnector';
 import { Svg } from 'react-native-svg';
 import { Text } from 'react-native';
-import { calculateArea, coordinateExists, getXCoordinate, getYCoordinate } from '../../utils/formulas';
+import { calculateArea, getAdjustedShapeDimensions } from '../../utils/formulas';
 import { FloatingActionButton } from '../../components/FloatingActionButton';
 import { shapeSetted } from './shapeSlice';
 
@@ -41,6 +41,14 @@ function Shape() {
         {renderedLines}
       </Svg>
       {renderedVertices}
+      <FloatingActionButton
+        action={()=>{
+          if (shape.length >= 3) {
+            const shapeAdjusted = getAdjustedShapeDimensions(shape, scale);
+            dispatch(shapeSetted(shapeAdjusted));
+          }
+        }}
+      />
     </>
   );
 }

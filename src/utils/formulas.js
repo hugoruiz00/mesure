@@ -16,6 +16,26 @@ export const calculateDistance = (x1, y1, x2, y2) => {
     return distance;
 }
 
+export const getAdjustedShapeDimensions = (shape, scale) => {
+    const shapeAux = [...shape];
+    for (let index = 1; index < shapeAux.length; index++) {
+      const nextIndex = index==shapeAux.length-1 ? 0 : index+1;
+      const prevIndex = index==0 ? shapeAux.length-1 : index-1;
+      const prevVertex = shapeAux[prevIndex];
+      const currentVertex = shapeAux[index];
+      const nextVertex = shapeAux[nextIndex];
+
+      if(coordinateExists(prevVertex.position, nextVertex.position, prevVertex.sideDistance/scale, currentVertex.sideDistance/scale)){
+        const xCoordinate = getXCoordinate(prevVertex.position, nextVertex.position, currentVertex.position, prevVertex.sideDistance/scale, currentVertex.sideDistance/scale);
+        const yCoordinate = getYCoordinate(prevVertex.position, nextVertex.position, currentVertex.position, prevVertex.sideDistance/scale, currentVertex.sideDistance/scale);
+        shapeAux[index].position = {x: xCoordinate, y: yCoordinate};
+      }else{
+        console.log("No es posible ajustar: "+index);
+      }
+    }
+    return shapeAux;
+}
+
 export const getXCoordinate = (A, B, C, dAC, dBC) => {
     const dAB = calculateDistance(A.x, A.y, B.x, B.y);
     const firstResult = (A.x+B.x)/2 + ((B.x-A.x)*(dAC**2-dBC**2)) / (2*(dAB**2));
