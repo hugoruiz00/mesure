@@ -1,7 +1,6 @@
 import React from 'react';
 import Vertex from './Vertex';
 import { useDispatch, useSelector } from 'react-redux';
-import { LineConnector } from './LineConnector';
 import { Text } from 'react-native';
 import { calculateArea, getAdjustedShapeDimensions } from '../../utils/formulas';
 import { FloatingActionButton } from '../../components/FloatingActionButton';
@@ -25,7 +24,7 @@ function Shape() {
         color:'black',
         fontWeight:'bold'
       }}>{(calculateArea(shape) * scale**2).toFixed(5)}</Text>
-      <PolygonArea shape={shape}></PolygonArea>
+      <PolygonArea shape={shape} scale={scale}></PolygonArea>
       {renderedVertices}
       <FloatingActionButton
         action={()=>{
