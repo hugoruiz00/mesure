@@ -29,7 +29,7 @@ const Vertex = ({id, position}) => {
           position: 'absolute',
           left: position.x,
           top: position.y,
-          backgroundColor:'#0962d6c2',
+          backgroundColor:'#7624acce',
           width:30,
           height:30,
           borderRadius:100

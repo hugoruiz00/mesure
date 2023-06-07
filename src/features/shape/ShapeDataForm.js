@@ -24,6 +24,13 @@ function ShapeDataForm({navigation}) {
             const newInputs = [...inputs];
             newInputs.splice(index, 1);
             setInputs(newInputs);
+        }else{
+            Alert.alert(
+                'Aviso',
+                'Debe haber por lo menos tres lados para calcular el área',
+                [{text: 'Aceptar', style: 'cancel'}],
+                {cancelable: true},
+            );
         }
     }
 
