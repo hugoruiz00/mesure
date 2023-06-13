@@ -6,8 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { scaleSetted } from '../features/scale/scaleSlice';
 import { calculateDistance, coordinateExists, getXCoordinate, getYCoordinate } from "../utils/formulas";
 import { shapeSetted } from "../features/shape/shapeSlice";
+import { ShapeInfoModal } from "../features/shape/ShapeInfoModal";
 
 export const ButtonGroup = () => {
+    const [modalVisible, setModalVisible] = useState(false);
     const scale = useSelector(state => state.scale);
     const shape = useSelector(state => state.shape);
     const dispatch = useDispatch();
@@ -46,6 +48,10 @@ export const ButtonGroup = () => {
   
     return (
       <View>
+        <ShapeInfoModal 
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+        />
         <FloatingActionButton
             child={
                 <Icon 
@@ -58,7 +64,7 @@ export const ButtonGroup = () => {
                 position: 'absolute',
                 bottom: 20,
                 right: 12,
-                backgroundColor: isExpanded ? "#847192":"#7624ac",
+                backgroundColor: isExpanded ? "#9976b1":"#7624ac",
             }}
         />
         {isExpanded && (
@@ -96,7 +102,7 @@ export const ButtonGroup = () => {
                     name='format-list-checkbox' 
                     size={30} 
                     color="#ffffff"/>}
-                action={() => console.log('Botón 3 presionado')}
+                action={() => setModalVisible(true)}
                 style={{ height: 50, width: 50,}}
             />
           </View>
