@@ -48,7 +48,9 @@ export const ButtonGroup = () => {
   
     return (
       <View>
-        <ShapeInfoModal 
+        <ShapeInfoModal
+          shape={shape}
+          scale={scale}
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
         />
