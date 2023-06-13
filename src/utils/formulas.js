@@ -1,7 +1,6 @@
 
 export const calculateArea = (shape) => {
     let total = 0;
-    console.log(shape);
     shape.forEach((vertex, index) => {
       const nextIndex = (index==shape.length-1) ? 0: index+1;
       total+= vertex.position.x * shape[nextIndex].position.y;
@@ -20,8 +19,7 @@ export const getAdjustedShapeDimensions = (shape, scale) => {
     const shapeAux = [...shape];
     for (let index = 1; index < shapeAux.length; index++) {
       const nextIndex = index==shapeAux.length-1 ? 0 : index+1;
-      const prevIndex = index==0 ? shapeAux.length-1 : index-1;
-      const prevVertex = shapeAux[prevIndex];
+      const prevVertex = shapeAux[index - 1];
       const currentVertex = shapeAux[index];
       const nextVertex = shapeAux[nextIndex];
 
