@@ -43,8 +43,8 @@ export const PolygonArea = ({shape, scale}) => {
               <Text style={{
                   position: 'absolute',
                   fontSize: 20,
-                  fontWeight: 600,
-                  color: 'black',
+                  fontWeight: 700,
+                  color: '#464646',
                   left: (start.x + end.x) / 2,
                   top: (start.y + end.y) / 2,
                 }}>
@@ -53,8 +53,8 @@ export const PolygonArea = ({shape, scale}) => {
               <Text style={{
                   position: 'absolute',
                   fontSize: 20,
-                  fontWeight: 600,
-                  color: 'black',
+                  fontWeight: 700,
+                  color: '#272727',
                   left: (start.x + end.x) / 2,
                   top: (start.y + end.y) / 2+20,
                 }}>

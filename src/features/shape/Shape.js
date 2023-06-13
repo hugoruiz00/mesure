@@ -19,12 +19,28 @@ function Shape() {
 
   return (
     <>
-      <Text style={{
+      <View style={{
         position:'absolute',
-        fontSize:20,
-        color:'black',
-        fontWeight:'bold'
-      }}>{(calculateArea(shape) * scale**2).toFixed(5)}</Text>
+        top:10,
+        left:10,
+        flexDirection: 'row',
+      }}>
+        <Text style={{
+            fontSize:20,
+            color:'black',
+            fontWeight:'bold',
+            marginRight:5,
+          }}>
+            Área:
+        </Text>
+        <Text style={{
+          fontSize:20,
+          color:'black',
+          fontWeight:500
+        }}>
+          {(calculateArea(shape) * scale**2).toFixed(5)}
+        </Text>
+      </View>
       <PolygonArea shape={shape} scale={scale}></PolygonArea>
       {renderedVertices}
       <ButtonGroup/>
