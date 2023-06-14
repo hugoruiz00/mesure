@@ -79,22 +79,22 @@ export const ButtonGroup = () => {
           >
             <FloatingActionButton
                 child={<Icon 
-                    name='arrow-collapse' 
+                    name='magnify-plus-outline' 
                     size={30} 
                     color="#ffffff"/>}
                 action={() => {
-                  const newScale = (scale * 1.1).toFixed(2);
+                  const newScale = (scale * 0.9).toFixed(2);
                   updateScale(newScale);
                 }}
                 style={{ marginBottom: 10, height: 50, width: 50,}}
             />
             <FloatingActionButton
                 child={<Icon 
-                    name='arrow-expand' 
+                    name='magnify-minus-outline' 
                     size={30} 
                     color="#ffffff"/>}
                 action={() => {
-                  const newScale = (scale * 0.9).toFixed(2);
+                  const newScale = (scale * 1.1).toFixed(2);
                   updateScale(newScale);
                 }}
                 style={{ marginBottom: 10, height: 50, width: 50,}}
