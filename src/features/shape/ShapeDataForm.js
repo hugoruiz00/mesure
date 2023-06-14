@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Alert, Dimensions, StyleSheet, Text } from 'react-native';
-import { ScrollView, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { Dimensions, StyleSheet, Text } from 'react-native';
+import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { shapeSetted } from './shapeSlice';
 import { scaleSetted } from '../scale/scaleSlice';
@@ -9,37 +9,7 @@ import { InputGroup } from '../../components/InputGroup';
 function ShapeDataForm({navigation}) {
     const dispatch = useDispatch();
 
-    const [inputs, setInputs] = useState([
-        {value:'', status:'empty'},
-        {value:'', status:'empty'},
-        {value:'', status:'empty'}
-    ]);
-
-    const handleOnSave = () => {
-        if(validadInputs()){
-            setShapeInitialState();
-        }else{
-            Alert.alert(
-                'Aviso',
-                'Ingrese números válidos en todos los campos',
-                [{text: 'Aceptar', style: 'cancel'}],
-                {cancelable: true},
-            );
-        }
-    }
-
-    const validadInputs = () => {
-        let isValid = true;
-        inputs.forEach(input => {
-            if(input.status!='valid'){
-                isValid = false;
-                return;
-            }
-        });
-        return isValid;
-    }
-
-    const setShapeInitialState = () => {
+    const setShapeInitialState = (inputs) => {
         const amountIncrease = 80;
         let xPosition = amountIncrease-50;
         let yPosition = amountIncrease-50;
@@ -59,23 +29,20 @@ function ShapeDataForm({navigation}) {
 
     return (
         <View style={styles.container}>
-            <ScrollView style={{marginBottom:10}}>
-                <Text style={styles.title}>
-                    Ingrese las medidas de los lados
-                </Text>
-                <InputGroup
-                    inputs={inputs}
-                    setInputs={setInputs}
-                    canAdd={true}
-                    canRemove={true}
-                />
-            </ScrollView>
-            <TouchableOpacity
-                style={styles.buttonSave}
-                onPress={() => handleOnSave()}
-            >
-                <Text style={{color:'white', fontWeight:'bold', fontSize:20}}>Continuar</Text>
-            </TouchableOpacity>
+            <Text style={styles.title}>
+                Ingrese las medidas de los lados
+            </Text>
+            <InputGroup
+                initialState={[
+                    {value:'', status:'empty'},
+                    {value:'', status:'empty'},
+                    {value:'', status:'empty'}
+                ]}
+                onSave={setShapeInitialState}
+                btnSaveText={'Continuar'}
+                canAdd={true}
+                canRemove={true}
+            />
         </View>
     );
 }
@@ -91,16 +58,6 @@ const styles = StyleSheet.create({
         color: '#292929',
         marginBottom:25,
     },
-    buttonSave: {
-        alignSelf:'center',
-        alignItems:'center',    
-        justifyContent: 'center',
-        backgroundColor: "#7524ac",
-        borderRadius: 10,
-        height: 50,
-        width: '75%',
-        marginBottom: 20,
-    }
 });
 
 export default ShapeDataForm;
