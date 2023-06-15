@@ -8,8 +8,10 @@ import { shapeSetted } from './shapeSlice';
 import { PolygonArea } from './PolygonArea';
 import { ButtonGroup } from '../../components/ButtonGroup';
 import { ShapeSideDistance } from './ShapeSideDistance';
+import { useState } from 'react';
 
 function Shape() {
+  const [distanceInShape, setDistanceInShape] = useState(true);
   const shape = useSelector(state => state.shape);
   const scale = useSelector(state => state.scale);
   const dispatch = useDispatch();
@@ -42,10 +44,10 @@ function Shape() {
           {(calculateArea(shape) * scale**2).toFixed(5)}
         </Text>
       </View>
-      <ShapeSideDistance shape={shape} scale={scale}/>
-      <PolygonArea shape={shape} scale={scale}></PolygonArea>
+      {!distanceInShape && <ShapeSideDistance shape={shape} scale={scale}/>}
+      <PolygonArea shape={shape} scale={scale} distanceInShape={distanceInShape}></PolygonArea>
       {renderedVertices}
-      <ButtonGroup/>
+      <ButtonGroup distanceInShape={distanceInShape} setDistanceInShape={setDistanceInShape}/>
       <FloatingActionButton
         action={()=>{
           if (shape.length >= 3) {

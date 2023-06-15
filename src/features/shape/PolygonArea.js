@@ -5,7 +5,7 @@ import { calculateDistance } from '../../utils/formulas';
 import { useDispatch } from 'react-redux';
 import { shapeSetted } from './shapeSlice';
 
-export const PolygonArea = ({shape, scale}) => {
+export const PolygonArea = ({shape, scale, distanceInShape}) => {
   const dispatch = useDispatch();
   const coordinates = shape.map(({position})=> position);
   const distances = shape.map(({sideDistance})=> sideDistance);
@@ -34,7 +34,7 @@ export const PolygonArea = ({shape, scale}) => {
           fill="#b965da96"
           {...panResponder.panHandlers}
         />
-        {coordinates.map((start, index) => {
+        {distanceInShape && coordinates.map((start, index) => {
           const nextIndex = (index + 1) % coordinates.length;
           const end = coordinates[nextIndex];
 

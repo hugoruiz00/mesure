@@ -8,7 +8,7 @@ import { calculateDistance, coordinateExists, getXCoordinate, getYCoordinate } f
 import { shapeSetted } from "../features/shape/shapeSlice";
 import { ShapeInfoModal } from "../features/shape/ShapeInfoModal";
 
-export const ButtonGroup = () => {
+export const ButtonGroup = ({distanceInShape, setDistanceInShape}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const scale = useSelector(state => state.scale);
     const shape = useSelector(state => state.shape);
@@ -77,6 +77,14 @@ export const ButtonGroup = () => {
               bottom: 90,
             }}
           >
+            <FloatingActionButton
+                child={<Icon
+                    name={distanceInShape ? 'eye-off-outline' : 'eye-outline'}
+                    size={30} 
+                    color="#ffffff"/>}
+                action={() => setDistanceInShape(!distanceInShape)}
+                style={{ marginBottom: 10, height: 50, width: 50,}}
+            />
             <FloatingActionButton
                 child={<Icon 
                     name='magnify-plus-outline' 
