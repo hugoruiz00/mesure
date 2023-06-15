@@ -1,8 +1,23 @@
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { calculateArea } from "../../utils/formulas";
+import { InputGroup } from "../../components/InputGroup";
+import { useDispatch } from "react-redux";
+import { shapeSetted } from "./shapeSlice";
 
 export const ShapeInfoModal = ({shape, scale, modalVisible, setModalVisible}) => {
+    const dispatch = useDispatch();
+    const inputs = shape.map(({sideDistance})=> {return {value:sideDistance.toString(), status:'valid'}});
+
+    const updateShape = (inputs) => {
+        const shapeAux = [...shape];
+        for (let i = 0; i < inputs.length; i++) {
+            shapeAux[i].sideDistance = parseFloat(inputs[i].value);
+        }
+        dispatch(shapeSetted(shapeAux));
+        setModalVisible(!modalVisible);
+    }
+
     return (
         <Modal
             animationType="slide"
@@ -13,6 +28,13 @@ export const ShapeInfoModal = ({shape, scale, modalVisible, setModalVisible}) =>
             <View style={styles.centerView}>
                 <View style={styles.container}>
                     <Text style={styles.textArea}>Área: {(calculateArea(shape) * scale**2).toFixed(5)}</Text>
+                    <InputGroup
+                        initialState={inputs}
+                        onSave={updateShape}
+                        btnSaveText={'Actualizar'}
+                        canAdd={false}
+                        canRemove={false}
+                    />
                     <TouchableOpacity
                         style={styles.closeButton}
                         onPress={()=> setModalVisible(!modalVisible) }
@@ -43,7 +65,7 @@ const styles = StyleSheet.create({
         fontSize:19,
         fontWeight:600,
         color:'#7624acff',
-        marginBottom: 4
+        marginBottom: 30
     },
     closeButton : {
         justifyContent:'center',

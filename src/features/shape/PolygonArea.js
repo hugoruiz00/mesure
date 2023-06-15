@@ -44,7 +44,7 @@ export const PolygonArea = ({shape, scale}) => {
                   position: 'absolute',
                   fontSize: 20,
                   fontWeight: 700,
-                  color: '#464646',
+                  color: '#575757',
                   left: (start.x + end.x) / 2,
                   top: (start.y + end.y) / 2,
                 }}>

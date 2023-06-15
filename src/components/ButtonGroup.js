@@ -101,7 +101,7 @@ export const ButtonGroup = () => {
             />
             <FloatingActionButton
                 child={<Icon 
-                    name='format-list-checkbox' 
+                    name='square-edit-outline' 
                     size={30} 
                     color="#ffffff"/>}
                 action={() => setModalVisible(true)}
