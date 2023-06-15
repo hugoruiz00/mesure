@@ -7,6 +7,7 @@ import { FloatingActionButton } from '../../components/FloatingActionButton';
 import { shapeSetted } from './shapeSlice';
 import { PolygonArea } from './PolygonArea';
 import { ButtonGroup } from '../../components/ButtonGroup';
+import { ShapeSideDistance } from './ShapeSideDistance';
 
 function Shape() {
   const shape = useSelector(state => state.shape);
@@ -41,6 +42,7 @@ function Shape() {
           {(calculateArea(shape) * scale**2).toFixed(5)}
         </Text>
       </View>
+      <ShapeSideDistance shape={shape} scale={scale}/>
       <PolygonArea shape={shape} scale={scale}></PolygonArea>
       {renderedVertices}
       <ButtonGroup/>
