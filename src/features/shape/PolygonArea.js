@@ -34,11 +34,12 @@ export const PolygonArea = ({shape, scale, distanceInShape}) => {
           fill="#b965da96"
           {...panResponder.panHandlers}
         />
-        {distanceInShape && coordinates.map((start, index) => {
+        {coordinates.map((start, index) => {
           const nextIndex = (index + 1) % coordinates.length;
           const end = coordinates[nextIndex];
 
           return (
+            distanceInShape ? 
             <React.Fragment key={index}>
               <Text style={{
                   position: 'absolute',
@@ -60,7 +61,20 @@ export const PolygonArea = ({shape, scale, distanceInShape}) => {
                 }}>
                 {distances[index]}
               </Text>
-            </React.Fragment>
+            </React.Fragment> 
+            :
+            <Text
+              key={index}
+              style={{
+              position: 'absolute',
+              fontSize: 20,
+              fontWeight: 700,
+              color: '#575757',
+              left: (start.x + end.x) / 2,
+              top: (start.y + end.y) / 2,
+            }}>
+              L{index+1}
+            </Text>
           );
         })}
       </Svg>

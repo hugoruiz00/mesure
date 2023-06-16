@@ -14,22 +14,16 @@ export const ShapeSideDistance = ({shape, scale}) => {
                 const end = shape[nextIndex].position;
                 
                 return (
-                    <View key={index} style={{marginBottom:10,}}>
-                    <View style={{flexDirection:'row', alignItems:'center', marginBottom:-3}}>
-                        <View style={styles.circleView}>
-                            <Text style={styles.textCircle}>{index+1}</Text>
-                        </View>
-                        <Text style={{fontSize:22, fontWeight:900, color:'#7624acce', marginHorizontal:2}}>-</Text>
-                        <View style={styles.circleView}>
-                            <Text style={styles.textCircle}>{index==shape.length-1 ? 1:index+2}</Text>
-                        </View>
-                    </View>
-                    <Text style={styles.textCurrentDistance}>
-                        {(calculateDistance(start.x, start.y, end.x, end.y) * scale).toFixed(2)}
-                    </Text>
-                    <Text style={styles.textRealDistance}>
-                        {vertex.sideDistance}
-                    </Text>
+                    <View key={index} style={{marginBottom:10,}}>  
+                        <Text style={{fontSize:18, fontWeight:800, color:'#7624acce', marginBottom:-3}}>
+                            L{index+1}
+                        </Text>
+                        <Text style={styles.textCurrentDistance}>
+                            {(calculateDistance(start.x, start.y, end.x, end.y) * scale).toFixed(2)}
+                        </Text>
+                        <Text style={styles.textRealDistance}>
+                            {vertex.sideDistance}
+                        </Text>
                     </View>
                 );
                 })}
@@ -45,18 +39,6 @@ const styles = StyleSheet.create({
         top:5,
         height:'50%',
         zIndex:1
-    },
-    circleView: {
-        backgroundColor:'#7624acce',
-        width:24,
-        height:24,
-        borderRadius:100
-    },
-    textCircle: {
-        fontSize:17,
-        color:'white',
-        fontWeight:'bold',
-        textAlign:'center',
     },
     textCurrentDistance: {
         fontSize: 18,
