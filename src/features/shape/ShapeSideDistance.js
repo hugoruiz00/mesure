@@ -15,7 +15,7 @@ export const ShapeSideDistance = ({shape, scale}) => {
                 
                 return (
                     <View key={index} style={{marginBottom:10,}}>  
-                        <Text style={{fontSize:18, fontWeight:800, color:'#7624acce', marginBottom:-3}}>
+                        <Text style={styles.textNumberSide}>
                             L{index+1}
                         </Text>
                         <Text style={styles.textCurrentDistance}>
@@ -50,5 +50,11 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 700,
         color: '#272727',
+    },
+    textNumberSide: {
+        fontSize:18,
+        fontWeight:800,
+        color:'#7624acce',
+        marginBottom:-3
     }
 });

@@ -1,7 +1,7 @@
 import React from 'react';
 import Vertex from './Vertex';
 import { useDispatch, useSelector } from 'react-redux';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { calculateArea, getAdjustedShapeDimensions } from '../../utils/formulas';
 import { FloatingActionButton } from '../../components/FloatingActionButton';
 import { shapeSetted } from './shapeSlice';
@@ -22,25 +22,11 @@ function Shape() {
 
   return (
     <>
-      <View style={{
-        position:'absolute',
-        top:10,
-        left:10,
-        flexDirection: 'row',
-      }}>
-        <Text style={{
-            fontSize:20,
-            color:'black',
-            fontWeight:'bold',
-            marginRight:5,
-          }}>
+      <View style={styles.areaContainer}>
+        <Text style={styles.textArea}>
             Área:
         </Text>
-        <Text style={{
-          fontSize:20,
-          color:'black',
-          fontWeight:500
-        }}>
+        <Text style={styles.areaValue}>
           {(calculateArea(shape) * scale**2).toFixed(5)}
         </Text>
       </View>
@@ -55,21 +41,9 @@ function Shape() {
             dispatch(shapeSetted(shapeAdjusted));
           }
         }}
-        style={{
-          position: 'absolute',
-          bottom: 25,
-          left: 12,
-          borderRadius: 20,
-          height: 50,
-          width: 100,
-        }}
+        style={styles.floatingButton}
         child={
-          <Text style={{
-            color:'#ffffff',
-            fontSize:18,
-            fontWeight:600,
-            marginHorizontal:10,
-          }}>
+          <Text style={styles.textAdjust}>
             Ajustar
           </Text>                  
         }
@@ -77,5 +51,39 @@ function Shape() {
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  areaContainer: {
+    position:'absolute',
+    top:10,
+    left:10,
+    flexDirection: 'row',
+  },
+  textArea: {
+    fontSize:20,
+    color:'black',
+    fontWeight:'bold',
+    marginRight:5,
+  },
+  areaValue: {
+    fontSize:20,
+    color:'black',
+    fontWeight:500
+  },
+  floatingButton: {
+    position: 'absolute',
+    bottom: 25,
+    left: 12,
+    borderRadius: 20,
+    height: 50,
+    width: 100,
+  },
+  textAdjust: {
+    color:'#ffffff',
+    fontSize:18,
+    fontWeight:600,
+    marginHorizontal:10,
+  }
+});
 
 export default Shape;

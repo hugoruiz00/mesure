@@ -88,14 +88,14 @@ export const InputGroup = ({initialState, onSave, btnSaveText, canAdd, canRemove
                     style={styles.button}
                     onPress={() => handleAddInput()}
                 >
-                    <Text style={{color:'white', fontWeight:'bold', fontSize:20}}>+ Agregar</Text>
+                    <Text style={styles.buttonText}>+ Agregar</Text>
                 </TouchableOpacity>}
             </ScrollView>
             <TouchableOpacity
                 style={styles.buttonSave}
                 onPress={() => handleOnSave()}
             >
-                <Text style={{color:'white', fontWeight:'bold', fontSize:20}}>{btnSaveText}</Text>
+                <Text style={styles.buttonText}>{btnSaveText}</Text>
             </TouchableOpacity>
         </>
     );
@@ -144,5 +144,10 @@ const styles = StyleSheet.create({
         height: 50,
         width: '75%',
         marginBottom: 20,
-    }
+    },
+    buttonText: {
+        color:'white',
+        fontWeight:'bold',
+        fontSize:20
+    },
 });
