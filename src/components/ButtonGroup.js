@@ -28,19 +28,25 @@ export const ButtonGroup = ({distanceInShape, setDistanceInShape}) => {
 
   const getAdjustedShapeWithNewScale = (shape, scale, newScale) => {
     const scaleChange = scale / newScale;
-    for (let index = 1; index < shape.length; index++) {
+    const oldPositions = shape.map(({position})=> position);
+    
+    for (let index = 0; index < shape.length; index++) {
+      const prevIndex = index==0 ? shape.length-1 : index-1;
       const nextIndex = index==shape.length-1 ? 0 : index+1;
-      const prevVertex = shape[index - 1];
+      const prevVertex = shape[prevIndex];
       const currentVertex = shape[index];
       const nextVertex = shape[nextIndex];
 
+      currentVertex.position.x = currentVertex.position.x - (oldPositions[prevIndex].x - prevVertex.position.x);
+      currentVertex.position.y = currentVertex.position.y - (oldPositions[prevIndex].y - prevVertex.position.y);
+
       prevVertexDistance = (calculateDistance(prevVertex.position.x, prevVertex.position.y, currentVertex.position.x, currentVertex.position.y) * newScale).toFixed(2) * scaleChange;
       currentVertexDistance = (calculateDistance(currentVertex.position.x, currentVertex.position.y, nextVertex.position.x, nextVertex.position.y) * newScale).toFixed(2) * scaleChange;
+      const dAB = calculateDistance(prevVertex.position.x, prevVertex.position.y, currentVertex.position.x, currentVertex.position.y)*newScale;
 
-      if(coordinateExists(prevVertex.position, nextVertex.position, prevVertexDistance/newScale, currentVertexDistance/newScale)){
-        const xCoordinate = getXCoordinate(prevVertex.position, nextVertex.position, currentVertex.position, prevVertexDistance/newScale, currentVertexDistance/newScale);
-        const yCoordinate = getYCoordinate(prevVertex.position, nextVertex.position, currentVertex.position, prevVertexDistance/newScale, currentVertexDistance/newScale);
-        shape[index].position = {x: xCoordinate, y: yCoordinate};
+      shape[index].position = {
+        x: prevVertex.position.x + (prevVertexDistance / dAB) * (currentVertex.position.x - prevVertex.position.x),
+        y: prevVertex.position.y + (prevVertexDistance / dAB) * (currentVertex.position.y - prevVertex.position.y),
       }
     }
     return shape;
