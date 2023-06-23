@@ -10,7 +10,7 @@ import ShapeDataForm from './src/features/shape/ShapeDataForm';
 import Shape from './src/features/shape/Shape';
 import { Slider } from './src/features/intro/Slider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ActivityIndicator } from 'react-native';
+import SplashScreen from './src/components/SplashScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,7 +34,7 @@ function App() {
   });
 
   if (isLoading) {
-    return <ActivityIndicator size='large' style={{flex:1, alignItems:'center'}}/>;
+    return <SplashScreen/>;
   }
 
   return (
