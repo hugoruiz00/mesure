@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
         right:7,
         top:5,
         height:'50%',
-        zIndex:1
     },
     textCurrentDistance: {
         fontSize: 18,

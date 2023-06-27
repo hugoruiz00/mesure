@@ -30,9 +30,9 @@ function Shape() {
           {(calculateArea(shape) * scale**2).toFixed(5)}
         </Text>
       </View>
-      {!distanceInShape && <ShapeSideDistance shape={shape} scale={scale}/>}
       <PolygonArea shape={shape} scale={scale} distanceInShape={distanceInShape}></PolygonArea>
       {renderedVertices}
+      {!distanceInShape && <ShapeSideDistance shape={shape} scale={scale}/>}
       <ButtonGroup distanceInShape={distanceInShape} setDistanceInShape={setDistanceInShape}/>
       <FloatingActionButton
         action={()=>{
