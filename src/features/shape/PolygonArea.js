@@ -1,9 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { PanResponder, Text, View } from 'react-native';
-import Svg, { Polygon } from 'react-native-svg';
 import { calculateDistance } from '../../utils/formulas';
 import { useDispatch } from 'react-redux';
 import { shapeSetted } from './shapeSlice';
+import { Polygon } from './Polygon';
 
 export const PolygonArea = ({shape, scale, distanceInShape}) => {
   const dispatch = useDispatch();
@@ -13,27 +13,27 @@ export const PolygonArea = ({shape, scale, distanceInShape}) => {
   const shapeRef = useRef(shape);
   shapeRef.current = shape;
 
+  const handlePanResponderRelease = useCallback((_, gesture) => {
+    const shapeAux = [...shapeRef.current];
+    for (let index = 0; index < shapeAux.length; index++) {
+      shapeAux[index].position = {
+        x: shapeAux[index].position.x + gesture.dx,
+        y: shapeAux[index].position.y + gesture.dy,
+      };
+    }
+    dispatch(shapeSetted(shapeAux));
+  }, [dispatch]);
+
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
-      onPanResponderRelease: (_, gesture) => {
-          const shapeAux = [...shapeRef.current];
-          for (let index = 0; index < shapeAux.length; index++) {
-            shapeAux[index].position = {x:shapeAux[index].position.x+gesture.dx, y:shapeAux[index].position.y+gesture.dy};
-          }
-          dispatch(shapeSetted(shapeAux));          
-      },
+      onPanResponderRelease: handlePanResponderRelease,
     })
   ).current;
 
   return (
     <View style={{ flex: 1 }}>
-      <Svg width="100%" height="100%">
-        <Polygon
-          points={coordinates.map(({ x, y }) => `${x+10},${y+10}`).join(' ')}
-          fill="#b965da96"
-          {...panResponder.panHandlers}
-        />
+        <Polygon coordinates={coordinates} panResponder={panResponder}/>
         {coordinates.map((start, index) => {
           const nextIndex = (index + 1) % coordinates.length;
           const end = coordinates[nextIndex];
@@ -77,7 +77,6 @@ export const PolygonArea = ({shape, scale, distanceInShape}) => {
             </Text>
           );
         })}
-      </Svg>
     </View>
   );
 };
