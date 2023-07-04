@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         height: 40,
         width: 250,
-        marginBottom:5,
+        marginBottom:10,
         backgroundColor: "#7624ac",
     },
     textAdjust: {
