@@ -72,6 +72,7 @@ export const InputGroup = ({initialState, onSave, btnSaveText, canAdd, canRemove
                                 value={input.value}
                                 placeholder='Ingrese la medida'
                                 onChangeText={value => handleInputChange(value, index)}
+                                placeholderTextColor={'#969696'}
                             />
                             {canRemove &&
                             <TouchableOpacity
@@ -114,6 +115,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: '#b3b3b3',
         borderRadius: 10,
+        color:'#5c5c5c'
     },
     textError: {
         fontSize:14,
