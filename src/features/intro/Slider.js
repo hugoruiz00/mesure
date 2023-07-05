@@ -8,9 +8,9 @@ export const Slider = () => {
     const [index, setIndex] = useState(0);
 
     const slides = [
-        {id:1, img:require('../../assets/img/intro-1.png')},
-        {id:2, img:require('../../assets/img/intro-2.png')},
-        {id:3, img:require('../../assets/img/intro-3.png')}
+        {id:1, img:require('../../assets/img/intro-1.png'), label:'Imágen para introducción'},
+        {id:2, img:require('../../assets/img/intro-2.png'), label:'Imágen para introducción'},
+        {id:3, img:require('../../assets/img/intro-3.png'), label:'Imágen para introducción'}
     ];
 
     const handleOnViewableItemsChanged = useRef(({viewableItems}) => {

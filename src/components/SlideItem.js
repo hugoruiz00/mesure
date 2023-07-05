@@ -10,6 +10,7 @@ const SlideItem = ({item}) => {
         source={item.img}
         resizeMode='stretch'
         style={styles.img}
+        accessibilityLabel={item.label}
       />
     </View>
   )
