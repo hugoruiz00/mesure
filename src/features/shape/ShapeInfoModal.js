@@ -10,10 +10,16 @@ export const ShapeInfoModal = ({shape, scale, modalVisible, setModalVisible}) =>
     const inputs = shape.map(({sideDistance})=> {return {value:sideDistance.toString(), status:'valid'}});
 
     const updateShape = (inputs) => {
-        const shapeAux = [...shape];
-        for (let i = 0; i < inputs.length; i++) {
-            shapeAux[i].sideDistance = parseFloat(inputs[i].value);
-        }
+        const shapeAux = shape.map((item, i) => {
+            if (inputs[i] && inputs[i].value) {
+                return {
+                    ...item,
+                    sideDistance: parseFloat(inputs[i].value), 
+                };
+            }
+            return {...item}; 
+        });
+        
         dispatch(shapeSetted(shapeAux));
         setModalVisible(!modalVisible);
     }

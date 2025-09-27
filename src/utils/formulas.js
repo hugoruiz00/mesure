@@ -26,7 +26,13 @@ export const getAdjustedShapeDimensions = (shape, scale) => {
       if(coordinateExists(prevVertex.position, nextVertex.position, prevVertex.sideDistance/scale, currentVertex.sideDistance/scale)){
         const xCoordinate = getXCoordinate(prevVertex.position, nextVertex.position, currentVertex.position, prevVertex.sideDistance/scale, currentVertex.sideDistance/scale);
         const yCoordinate = getYCoordinate(prevVertex.position, nextVertex.position, currentVertex.position, prevVertex.sideDistance/scale, currentVertex.sideDistance/scale);
-        shapeAux[index].position = {x: xCoordinate, y: yCoordinate};
+
+        const newVertex = {
+            ...currentVertex,
+            position: { x: xCoordinate, y: yCoordinate }
+        };
+        
+        shapeAux[index] = newVertex; 
       }else{
         console.log("No es posible ajustar: "+index);
       }
