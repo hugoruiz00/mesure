@@ -1,5 +1,5 @@
-import React, { useCallback, useRef } from 'react';
-import { PanResponder, Text, View } from 'react-native';
+import React, { useRef } from 'react';
+import { Text, View } from 'react-native';
 import { calculateDistance } from '../../utils/formulas';
 import { useDispatch } from 'react-redux';
 import { shapeSetted } from './shapeSlice';
@@ -9,31 +9,16 @@ export const PolygonArea = ({shape, scale, distanceInShape}) => {
   const dispatch = useDispatch();
   const coordinates = shape.map(({position})=> position);
   const distances = shape.map(({sideDistance})=> sideDistance);
-  
-  const shapeRef = useRef(shape);
-  shapeRef.current = shape;
-
-  const handlePanResponderRelease = useCallback((_, gesture) => {
-    const shapeAux = [...shapeRef.current];
-    for (let index = 0; index < shapeAux.length; index++) {
-      shapeAux[index].position = {
-        x: shapeAux[index].position.x + gesture.dx,
-        y: shapeAux[index].position.y + gesture.dy,
-      };
-    }
-    dispatch(shapeSetted(shapeAux));
-  }, [dispatch]);
-
-  const panResponder = useRef(
-    PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onPanResponderRelease: handlePanResponderRelease,
-    })
-  ).current;
 
   return (
     <View style={{ flex: 1 }}>
-        <Polygon coordinates={coordinates} panResponder={panResponder}/>
+        <Polygon
+          shape={shape}
+          coordinates={coordinates}
+          dispatch={dispatch}
+          shapeSetted={shapeSetted}
+        />
+        
         {coordinates.map((start, index) => {
           const nextIndex = (index + 1) % coordinates.length;
           const end = coordinates[nextIndex];

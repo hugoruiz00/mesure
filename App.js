@@ -11,6 +11,7 @@ import Shape from './src/features/shape/Shape';
 import { Slider } from './src/features/intro/Slider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from './src/components/SplashScreen';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const Stack = createNativeStackNavigator();
 
@@ -38,25 +39,27 @@ function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        {showIntro && <Stack.Screen
-          name="Intro"
-          component={Slider}
-          options={{headerShown:false}}
-        />}
-        <Stack.Screen
-          name="ShapeDataFrom"
-          component={ShapeDataForm}
-          options={{headerShown:false}}
-        />
-        <Stack.Screen
-          name="Shape"
-          component={Shape}
-          options={{headerShown:false}}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <GestureHandlerRootView>
+      <NavigationContainer>
+        <Stack.Navigator>
+          {showIntro && <Stack.Screen
+            name="Intro"
+            component={Slider}
+            options={{headerShown:false}}
+          />}
+          <Stack.Screen
+            name="ShapeDataFrom"
+            component={ShapeDataForm}
+            options={{headerShown:false}}
+          />
+          <Stack.Screen
+            name="Shape"
+            component={Shape}
+            options={{headerShown:false}}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 }
 
